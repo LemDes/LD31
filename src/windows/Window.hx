@@ -14,7 +14,7 @@ class Window extends Entity
 	public var fileName:String;
 	public var rect(default,null):Rectangle;
 	
-	private var bar:Image;
+	public var titlebarHeight(default,null):Int = 27;
 	private var reduceIcon:Icon;
 	private var closeIcon:Icon;
 	
@@ -30,15 +30,15 @@ class Window extends Entity
 	
 	public override function added ()
 	{
-		closeIcon = new Icon("close", Std.int(rect.x+rect.width-20), Std.int(rect.y+5), function () close());
-		reduceIcon = new Icon("reduce", Std.int(rect.x+rect.width-45), Std.int(rect.y+5), function () hide());
+		closeIcon = new Icon("close", Std.int(rect.x+rect.width-20), Std.int(rect.y+4), function () close());
+		reduceIcon = new Icon("reduce", Std.int(rect.x+rect.width-45), Std.int(rect.y+4), function () hide());
 		HXP.scene.add(closeIcon);
 		HXP.scene.add(reduceIcon);
 	}
 	
 	public function makeTitleBar()
 	{		
-		bar = Image.createRect(Std.int(rect.width),25,0xDDDAD8);
+		var bar = Image.createRect(Std.int(rect.width),Std.int(rect.height),0xDDDAD8);
 		bar.x = rect.x;
 		bar.y = rect.y;
 		cast(graphic,Graphiclist).add(bar);
