@@ -9,6 +9,6 @@ class Desktop extends Scene
 		addGraphic(new Image("graphics/LD31-Background.png"));
 		
 		// TaskBar
-		new TaskBar(this);
+		new taskbar.TaskBar(this);
 	}
 }
