@@ -5,6 +5,7 @@ import com.haxepunk.HXP;
 import com.haxepunk.Graphic;
 import com.haxepunk.graphics.Graphiclist;
 import com.haxepunk.graphics.Image;
+import com.haxepunk.graphics.Text;
 
 import openfl.geom.Rectangle;
 
@@ -42,6 +43,15 @@ class Window extends Entity
 		bar.x = rect.x;
 		bar.y = rect.y;
 		cast(graphic,Graphiclist).add(bar);
+		
+		var appText = appName;
+		if (fileName != null && fileName != "")
+			appText += " - " + fileName;
+		var text = new Text(appText, height=titlebarHeight-10);
+		text.color = 0x0;
+		text.x = bar.x + (rect.width - text.width)/2;
+		text.y = bar.y+2;
+		cast(graphic,Graphiclist).add(text);
 		
 	}
 	
