@@ -3,8 +3,7 @@ import com.haxepunk.HXP;
 
 class Main extends Engine
 {
-
-	override public function init()
+	override public function init ()
 	{
 #if debug
 		HXP.console.enable();
@@ -13,5 +12,4 @@ class Main extends Engine
 	}
 
 	public static function main() { new Main(); }
-
 }
