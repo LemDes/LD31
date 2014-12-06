@@ -15,6 +15,9 @@ class Window extends Entity
 	public var fileName:String;
 	public var rect(default,null):Rectangle;
 	
+	public var bar:Image;
+	public var text:Text;
+	
 	public var titlebarHeight(default,null):Int = 27;
 	private var reduceIcon:Icon;
 	private var closeIcon:Icon;
@@ -39,7 +42,7 @@ class Window extends Entity
 	
 	public function makeTitleBar()
 	{		
-		var bar = Image.createRect(Std.int(rect.width),Std.int(rect.height),0xDDDAD8);
+		bar = Image.createRect(Std.int(rect.width),Std.int(rect.height),0xDDDAD8);
 		bar.x = rect.x;
 		bar.y = rect.y;
 		cast(graphic,Graphiclist).add(bar);
@@ -47,7 +50,7 @@ class Window extends Entity
 		var appText = appName;
 		if (fileName != null && fileName != "")
 			appText += " - " + fileName;
-		var text = new Text(appText, height=titlebarHeight-10);
+		text = new Text(appText, height=titlebarHeight-10);
 		text.color = 0x0;
 		text.x = bar.x + (rect.width - text.width)/2;
 		text.y = bar.y+2;
