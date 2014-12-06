@@ -10,5 +10,7 @@ class Desktop extends Scene
 		
 		// TaskBar
 		new taskbar.TaskBar(this);
+		
+		add(new windows.ImageViewer(new openfl.geom.Rectangle(100,100,300,400),"toto"));
 	}
 }

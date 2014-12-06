@@ -1,38 +1,68 @@
 package windows;
 
 import com.haxepunk.Entity;
+import com.haxepunk.HXP;
 import com.haxepunk.Graphic;
 import com.haxepunk.graphics.Graphiclist;
+import com.haxepunk.graphics.Image;
 
 import openfl.geom.Rectangle;
 
 class Window extends Entity
 {
-	private var titleBar:TitleBar;
 	public var appName(default,null):String;
 	public var fileName:String;
 	public var rect(default,null):Rectangle;
+	
+	private var bar:Image;
+	private var reduceIcon:Icon;
+	private var closeIcon:Icon;
+	
 	
 	public function new(rect:Rectangle)
 	{
 		super();
 		this.rect = rect;
-		titleBar = new TitleBar(appName,fileName);
 		graphic = new Graphiclist();
-		addTitleBar(titleBar);		
+		makeTitleBar();		
+		makeMainFrame();
 	}
 	
-	public function addTitleBar(titleBar:TitleBar)
+	public override function added ()
 	{
-		titleBar.x = rect.x;
-		titleBar.y = rect.y;
-		cast(graphic,Graphiclist).add(titleBar);
+		closeIcon = new Icon("graphics/icons/close.png","graphics/icons/close.png",Std.int(rect.x+rect.width-20), Std.int(rect.y+5),15,15, function () close());
+		reduceIcon = new Icon("graphics/icons/reduce.png","graphics/icons/reduce.png",Std.int(rect.x+rect.width-45), Std.int(rect.y+5),15,15, function () hide());
+		HXP.scene.add(closeIcon);
+		HXP.scene.add(reduceIcon);
 	}
 	
-	public function addMainFrame(mainFrame:Graphic)
+	public function makeTitleBar()
+	{		
+		bar = Image.createRect(Std.int(rect.width),25,0xDDDAD8);
+		bar.x = rect.x;
+		bar.y = rect.y;
+		cast(graphic,Graphiclist).add(bar);
+		
+	}
+	
+	public function makeMainFrame()
 	{
-		mainFrame.x = rect.x;
-		mainFrame.y = rect.y + titleBar.height;
-		cast(graphic,Graphiclist).add(mainFrame);
+	}
+	
+	public function close()
+	{
+		HXP.scene.remove(closeIcon);
+		HXP.scene.remove(reduceIcon);
+		HXP.scene.remove(this);
+	}
+	
+	public function show()
+	{
+		closeIcon.visible = reduceIcon.visible = visible = true;
+	}
+	
+	public function hide()
+	{
+		closeIcon.visible = reduceIcon.visible = visible = false;
 	}
 }

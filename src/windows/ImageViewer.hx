@@ -11,6 +11,13 @@ class ImageViewer extends Window
 		this.appName = "Image viewer";
 		this.fileName = fileName;
 		super(rect);
-		addMainFrame(Image.createRect(50,50,0x0ff00));
+	}
+	
+	override public function makeMainFrame()
+	{
+		var mainFrame = Image.createRect(Std.int(rect.width),Std.int(rect.height),0x0ff00);
+		mainFrame.x = rect.x;
+		mainFrame.y = rect.y + bar.height;
+		cast(graphic,Graphiclist).add(mainFrame);
 	}
 }
