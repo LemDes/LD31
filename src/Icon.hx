@@ -8,12 +8,12 @@ class Icon extends Entity
 	public var img_hover : Image;
 	var cb : Void->Void;
 	
-	public function new (name_normal:String, name_hover:String, x:Int, y:Int, cb:Void->Void)
+	public function new (name:String, x:Int, y:Int, cb:Void->Void)
 	{
 		this.cb = cb;
 		
-		img_normal = new Image(name_normal);
-		img_hover = new Image(name_hover);
+		img_normal = new Image('graphics/icons/$name.png');
+		img_hover = new Image('graphics/icons/${name}_hover.png');
 		
 		super(x, y, img_normal);
 		

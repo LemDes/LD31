@@ -10,13 +10,13 @@ class Volume
 	
 	public function new (desktop:Desktop, clock:Clock)
 	{
-		icon = desktop.add(new Icon("graphics/icons/volume_on.png", "graphics/icons/volume_on.png", Std.int(clock.x - 30), 500, swap));
+		icon = desktop.add(new Icon("volume_on", Std.int(clock.x - 30), 500, swap));
 		
 		icons = new Array<Image>();
 		icons.push(icon.img_normal);
 		icons.push(icon.img_hover);
 		icons.push(new Image("graphics/icons/volume_off.png"));
-		icons.push(new Image("graphics/icons/volume_off.png"));
+		icons.push(new Image("graphics/icons/volume_off_hover.png"));
 	}
 	
 	function swap ()

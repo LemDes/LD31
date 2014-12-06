@@ -30,8 +30,8 @@ class Window extends Entity
 	
 	public override function added ()
 	{
-		closeIcon = new Icon("graphics/icons/close.png","graphics/icons/close.png",Std.int(rect.x+rect.width-20), Std.int(rect.y+5), function () close());
-		reduceIcon = new Icon("graphics/icons/reduce.png","graphics/icons/reduce.png",Std.int(rect.x+rect.width-45), Std.int(rect.y+5), function () hide());
+		closeIcon = new Icon("close", Std.int(rect.x+rect.width-20), Std.int(rect.y+5), function () close());
+		reduceIcon = new Icon("reduce", Std.int(rect.x+rect.width-45), Std.int(rect.y+5), function () hide());
 		HXP.scene.add(closeIcon);
 		HXP.scene.add(reduceIcon);
 	}
