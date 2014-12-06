@@ -70,11 +70,13 @@ class SoundPlayer extends Window
 	public function resume()
 	{
 		sound.resume();
-		paused = true;
+		paused = false;
 	}
 	
 	override public function close()
 	{
+		sound.stop();
+		sound = null;
 		HXP.scene.remove(playIcon);
 		HXP.scene.remove(pauseIcon);
 		super.close();

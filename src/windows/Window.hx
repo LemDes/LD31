@@ -52,8 +52,8 @@ class Window extends Entity
 			appText += " - " + fileName;
 		text = new Text(appText, height=titlebarHeight-10);
 		text.color = 0x0;
-		text.x = bar.x + (rect.width - text.width)/2;
-		text.y = bar.y+2;
+		text.x = Std.int(bar.x + (rect.width - text.width)/2);
+		text.y = Std.int(bar.y+2);
 		cast(graphic,Graphiclist).add(text);
 		
 	}

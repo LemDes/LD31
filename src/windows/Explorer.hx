@@ -6,22 +6,26 @@ import com.haxepunk.graphics.Text;
 import com.haxepunk.Graphic;
 import com.haxepunk.HXP;
 
-import haxe.ds.StringMap;
-
 import openfl.geom.Rectangle;
 
 class Explorer extends Window
 {
 	private var icons:Array<Icon> = [];
-	private var fileStructure:StringMap<Array<String>>;
+	private var fileStructure:Map<String, Array<String>>;
+	private var parents:Map<String, String>;
 	
 	public function new(rect:Rectangle,fileName:String)
 	{
 		this.appName = "Explorer";
 		this.fileName = fileName;
-		fileStructure = new StringMap<Array<String>>();
-		fileStructure.set("desktop",["test", "music.ogg"]);
-		fileStructure.set("test",["vendetta-warrior.exe", "music.ogg"]);
+		
+		fileStructure = new Map<String, Array<String>>();
+		fileStructure["Desktop"] = ["test", "music.ogg"];
+		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg"];
+		
+		parents = new Map<String, String>();
+		parents["test"] = "Desktop";
+		
 		super(rect);
 	}
 	
@@ -45,7 +49,7 @@ class Explorer extends Window
 		for (entry in fileStructure.get(fileName))
 		{
 			var dotPosition = entry.indexOf(".");
-			if ( dotPosition == -1) // a folder
+			if ( dotPosition == -1 || entry == "..") // a folder
 			{
 				displayEntry(entry,i,"folder");
 			}
@@ -59,7 +63,7 @@ class Explorer extends Window
 	
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
-		var icon = new Icon(type,Std.int(rect.x + (90*Std.int(pos/5))),Std.int(rect.y + titlebarHeight + (90*(pos%5))),function(){open(name,type);});
+		var icon = new Icon(type,Std.int(rect.x + (90*Std.int(pos/5))),Std.int(rect.y + titlebarHeight + (140*(pos%5))),function(){open(name,type);}, name, 90);
 		icons.push(icon);
 		HXP.scene.add(icon);
 	}
@@ -68,14 +72,14 @@ class Explorer extends Window
 	{
 		if (type == "folder")
 		{
-			trace("hey");
-			for (i in icons)
-			{
-				HXP.scene.remove(i);
-			}
-			icons = [];
+			cleanIcons();
 			
+			if (name == "..")
+			{
+				name = parents[fileName];
+			}
 			fileName = name;
+			
 			addFilesIcon();
 		}
 		else
@@ -84,10 +88,26 @@ class Explorer extends Window
 		}
 		
 		text.visible = false;
-		text.text =appName+" - " + fileName;
+		text.text = appName+" - " + fileName;
 		text.color = 0x0;
-		text.x = bar.x + (rect.width - new Text(appName+" - " + fileName, height=titlebarHeight-10).width)/2;
-		text.y = bar.y+2;
+		text.x = Std.int(bar.x + (rect.width - text.textWidth)/2);
+		text.y = Std.int(bar.y+2);
 		text.visible = true;
+	}
+	
+	public override function close ()
+	{
+		cleanIcons();		
+		super.close();
+	}
+	
+	function cleanIcons ()
+	{
+		for (icon in icons)
+		{
+			HXP.scene.remove(icon);
+		}
+		
+		icons = [];
 	}
 }
