@@ -4,11 +4,11 @@ import com.haxepunk.utils.Input;
 
 class Icon extends Entity
 {
-	var img_normal : Image;
-	var img_hover : Image;
+	public var img_normal : Image;
+	public var img_hover : Image;
 	var cb : Void->Void;
 	
-	public function new (name_normal:String, name_hover:String, x:Int, y:Int, width:Int, height:Int, cb:Void->Void)
+	public function new (name_normal:String, name_hover:String, x:Int, y:Int, cb:Void->Void)
 	{
 		this.cb = cb;
 		

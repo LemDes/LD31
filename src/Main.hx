@@ -8,6 +8,7 @@ class Main extends Engine
 #if debug
 		HXP.console.enable();
 #end
+		HXP.defaultFont = "font/Timeless-Bold.ttf";
 		HXP.scene = new Desktop();
 	}
 
