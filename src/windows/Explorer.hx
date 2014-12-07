@@ -27,7 +27,7 @@ class Explorer extends Window
 		fileStructure = new Map<String, Array<String>>();
 		fileStructure["Desktop"] = ["test", "sound.ogg","vendetta-warrior.exe"];
 		fileStructure["Trash"] = ["..","vendetta-warrior.exe"];
-		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg"];
+		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg","test.txt"];
 		
 		parents = new Map<String, String>();
 		parents["test"] = "Desktop";
@@ -108,6 +108,10 @@ class Explorer extends Window
 			if (type == "ogg")
 			{
 				SoundPlayer.openFile(name);
+			}
+			if (type == "txt")
+			{
+				TextViewer.openFile(name);
 			}
 			if (type == "exe")
 			{
