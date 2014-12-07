@@ -49,7 +49,7 @@ class Icon extends Entity
 		var mx = Input.mouseX;
 		var my = Input.mouseY;
 		
-		if (x <= mx && mx <= x + width && y <= my && my <= y + height)
+		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag())
 		{
 			graphic = text ? g_hover : img_hover;
 			

@@ -53,6 +53,14 @@ class SoundPlayer extends Window
 		}
 	}
 	
+	override function makeDrag ()
+	{
+		super.makeDrag();
+		
+		addDelta(playIcon, delta.x, delta.y);
+		addDelta(pauseIcon, delta.x, delta.y);
+	}
+	
 	public function pause()
 	{
 		sound.stop();

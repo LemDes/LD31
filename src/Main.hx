@@ -3,6 +3,11 @@ import com.haxepunk.HXP;
 
 class Main extends Engine
 {
+	public function new ()
+	{
+		super(960, 540, 60);
+	}
+	
 	override public function init ()
 	{
 #if debug

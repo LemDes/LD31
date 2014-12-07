@@ -6,6 +6,7 @@ import com.haxepunk.Graphic;
 import com.haxepunk.graphics.Graphiclist;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.graphics.Text;
+import com.haxepunk.utils.Input;
 
 import openfl.geom.Rectangle;
 
@@ -22,10 +23,12 @@ class Window extends Entity
 	private var reduceIcon:Icon;
 	private var closeIcon:Icon;
 	
+	public var drag : { x:Float, y:Float };	
+	var delta : { x:Float, y:Float };	
 	
 	public function new(rect:Rectangle)
 	{
-		super();
+		super(rect.x, rect.y);
 		this.rect = rect;
 		graphic = new Graphiclist();
 		makeTitleBar();		
@@ -43,8 +46,8 @@ class Window extends Entity
 	public function makeTitleBar()
 	{		
 		bar = Image.createRect(Std.int(rect.width),Std.int(rect.height),0xDDDAD8);
-		bar.x = rect.x;
-		bar.y = rect.y;
+		//~ bar.x = rect.x;
+		//~ bar.y = rect.y;
 		cast(graphic,Graphiclist).add(bar);
 		
 		var appText = appName;
@@ -52,10 +55,53 @@ class Window extends Entity
 			appText += " - " + fileName;
 		text = new Text(appText, height=titlebarHeight-10);
 		text.color = 0x0;
-		text.x = Std.int(bar.x + (rect.width - text.width)/2);
+		text.x = Std.int((rect.width - text.width)/2);
 		text.y = Std.int(bar.y+2);
 		cast(graphic,Graphiclist).add(text);
 		
+	}
+	
+	public override function update ()
+	{
+		super.update();
+		
+		var mx : Float = Input.mouseX;
+		var my : Float = Input.mouseY;
+		
+		if (x <= mx && mx <= x + rect.width - 45 && y <= my && my <= y + titlebarHeight)
+		{
+			if (Input.mousePressed)
+			{
+				drag = { x: mx, y: my };
+			}
+		}
+		
+		if (Input.mouseReleased)
+		{
+			drag = null;
+		}
+		
+		if (drag != null)
+		{
+			my = Math.min(my, 514-titlebarHeight);
+			delta = { x: mx - drag.x, y: my - drag.y };
+			drag = { x: mx, y: my };
+		
+			makeDrag();
+		}
+	}
+	
+	function makeDrag ()
+	{
+		addDelta(this, delta.x, delta.y);			
+		addDelta(closeIcon, delta.x, delta.y);			
+		addDelta(reduceIcon, delta.x, delta.y);
+	}
+	
+	function addDelta (e:Entity, dx:Float, dy:Float)
+	{
+		e.x += dx;
+		e.y += dy;
 	}
 	
 	public function makeMainFrame()

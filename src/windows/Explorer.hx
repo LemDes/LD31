@@ -32,8 +32,8 @@ class Explorer extends Window
 	override public function makeMainFrame()
 	{
 		var mainFrame = Image.createRect(Std.int(rect.width-4),Std.int(rect.height- 2 -titlebarHeight),0xffffff);
-		mainFrame.x = rect.x+2;
-		mainFrame.y = rect.y + titlebarHeight;
+		mainFrame.x = 2;
+		mainFrame.y = titlebarHeight;
 		cast(graphic,Graphiclist).add(mainFrame);
 	}
 	
@@ -63,7 +63,7 @@ class Explorer extends Window
 	
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
-		var icon = new Icon(type,Std.int(rect.x + (90*Std.int(pos/5))),Std.int(rect.y + titlebarHeight + (140*(pos%5))),function(){open(name,type);}, name, 90);
+		var icon = new Icon(type,Std.int(x + (90*Std.int(pos/5))),Std.int(y + titlebarHeight + (140*(pos%5))),function(){open(name,type);}, name, 90);
 		icons.push(icon);
 		HXP.scene.add(icon);
 	}
@@ -93,6 +93,16 @@ class Explorer extends Window
 		text.x = Std.int(bar.x + (rect.width - text.textWidth)/2);
 		text.y = Std.int(bar.y+2);
 		text.visible = true;
+	}
+	
+	override function makeDrag ()
+	{
+		super.makeDrag();
+		
+		for (icon in icons)
+		{
+			addDelta(icon, delta.x, delta.y);
+		}
 	}
 	
 	public override function close ()
