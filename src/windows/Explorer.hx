@@ -25,13 +25,32 @@ class Explorer extends Window
 		this.fileName = fileName;
 		
 		fileStructure = new Map<String, Array<String>>();
-		fileStructure["Desktop"] = ["test", "sound.ogg","vendetta-warrior.exe"];
 		fileStructure["Trash"] = ["..","vendetta-warrior.exe"];
+		fileStructure["Home"] = ["seasonal","stuff","work","vendetta-warrior.exe"];
+		fileStructure["work"] = ["..","LD31","vendetta-warrior.exe"];
+		fileStructure["stuff"] = ["..","vendetta-warrior.exe"];
+		fileStructure["seasonal"] = ["..","autumn","spring","summer","winter","vendetta-warrior.exe"];
+		fileStructure["autumn"] = ["..","vendetta-warrior.exe"];
+		fileStructure["spring"] = ["..","vendetta-warrior.exe"];
+		fileStructure["summer"] = ["..","vendetta-warrior.exe"];
+		fileStructure["winter"] = ["..","normal folder","secret folder","vendetta-warrior.exe"];
+		fileStructure["normal folder"] = ["..","perpetuator.png","vendetta-warrior.exe","stop-vendetta.exe"];
+		fileStructure["secret folder"] = ["..","vendetta-warrior.exe"];
+		
+		
 		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg","test.txt"];
 		
 		parents = new Map<String, String>();
-		parents["test"] = "Desktop";
-		parents["Trash"] = "Desktop";
+		parents["work"] = "Home";
+		parents["stuff"] = "Home";
+		parents["seasonal"] = "Home";
+		parents["spring"] = "seasonal";
+		parents["winter"] = "seasonal";
+		parents["autumn"] = "seasonal";
+		parents["summer"] = "seasonal";
+		parents["normal folder"] = "winter";
+		parents["secret folder"] = "winter";
+		parents["Trash"] = "Home";
 		
 		super(rect);
 	}
@@ -82,7 +101,7 @@ class Explorer extends Window
 	
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
-		var r = 2;
+		var r = 3;
 		var icon = new Icon(type,Std.int(10 +x + (120*Std.int(pos/r))),Std.int(10 + y + titlebarHeight + (140*(pos%r))),function(){openName(name,type);}, name, 90);
 		icon.layer = layer;
 		icons.push(icon);
@@ -93,15 +112,20 @@ class Explorer extends Window
 	{
 		if (type == "folder")
 		{
-			cleanIcons();
-			
-			if (name == "..")
+			if (name != "LD31")
 			{
-				name = parents[fileName];
+				cleanIcons();
+				
+				if (name == "..")
+				{
+					name = parents[fileName];
+				}
+				fileName = name;
+				
+				addFilesIcon();
 			}
-			fileName = name;
-			
-			addFilesIcon();
+			else
+			{}
 		}
 		else
 		{
@@ -109,15 +133,23 @@ class Explorer extends Window
 			{
 				SoundPlayer.openFile(name);
 			}
-			if (type == "txt")
+			else if (type == "png" || type == "jpg")
+			{
+				ImageViewer.openFile(name);
+			}
+			else if (type == "txt")
 			{
 				TextViewer.openFile(name);
 			}
-			if (type == "exe")
+			else if (type == "exe")
 			{
 				switch (fileName)
 				{
-					case "Desktop":
+					case "Home":
+						SoundPlayer.openFile("enigma1.ogg");
+					case "winter":
+						TextViewer.openFile("caesar_cipher.txt");
+					default:
 						SoundPlayer.openFile("enigma1.ogg");
 				}
 			}

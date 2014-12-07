@@ -13,6 +13,9 @@ class TextViewer extends Window
 		TextViewer.textFiles = new Map<String, String>();
 		TextViewer.textFiles[" "] = "";
 		TextViewer.textFiles["test.txt"] = "Hello dude!";
+		TextViewer.textFiles["caesar_cipher.txt"] = "opsnbm"; // +1
+		//~ TextViewer.textFiles["caesar_cipher.txt"] = "pqtocn"; // +2
+		TextViewer.textFiles["perpetuator.txt"] = "☃";
 	}
 	
 	public function new(rect:Rectangle,fileName:String)
@@ -24,12 +27,12 @@ class TextViewer extends Window
 	
 	public static function open ()
 	{
-		Desktop.open( new windows.TextViewer(new openfl.geom.Rectangle(500,100,300,150),""));
+		Desktop.open( new windows.TextViewer(new openfl.geom.Rectangle(500,100,350,150),""));
 	}
 	
 	public static function openFile (fileName=" ")
 	{
-		Desktop.open(new windows.TextViewer(new openfl.geom.Rectangle(500,100,300,150),fileName));
+		Desktop.open(new windows.TextViewer(new openfl.geom.Rectangle(500,100,350,150),fileName));
 	}
 	
 	override public function makeMainFrame()

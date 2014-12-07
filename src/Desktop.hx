@@ -64,7 +64,7 @@ class Desktop extends Scene
 		new taskbar.TaskBar(this);
 
 		// Desktop links
-		add( new Icon("explorer", 20, 20, Explorer.open.bind("Desktop"), "Explorer", 0) );
+		add( new Icon("explorer", 20, 20, Explorer.open.bind("Home"), "Explorer", 0) );
 		add( new Icon("trash", 20, 120, Explorer.open.bind("Trash"), "Trash", 0) );
 		add( new Icon("sound", 20, 220, SoundPlayer.open, "Sound player", 0) );
 		add( new Icon("image", 20, 340, ImageViewer.open, "Image viewer", 0) );

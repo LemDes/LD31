@@ -10,6 +10,10 @@ class ImageViewer extends Window
 	{
 		Desktop.open( new windows.ImageViewer(new openfl.geom.Rectangle(100,100,404,330), "coffee_beans2.jpg") );
 	}
+	public static function openFile (fileName:String)
+	{
+		Desktop.open( new windows.ImageViewer(new openfl.geom.Rectangle(100,100,404,330), fileName) );
+	}
 	
 	public function new(rect:Rectangle,fileName:String)
 	{
