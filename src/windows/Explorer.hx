@@ -20,7 +20,7 @@ class Explorer extends Window
 		this.fileName = fileName;
 		
 		fileStructure = new Map<String, Array<String>>();
-		fileStructure["Desktop"] = ["test", "music.ogg"];
+		fileStructure["Desktop"] = ["test", "sound.ogg"];
 		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg"];
 		
 		parents = new Map<String, String>();
@@ -55,7 +55,7 @@ class Explorer extends Window
 			}
 			else
 			{
-				displayEntry(entry,i,"other");
+				displayEntry(entry,i,entry.substr(dotPosition+1));
 			}
 			i++;
 		}
@@ -63,7 +63,8 @@ class Explorer extends Window
 	
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
-		var icon = new Icon(type,Std.int(x + (90*Std.int(pos/5))),Std.int(y + titlebarHeight + (140*(pos%5))),function(){open(name,type);}, name, 90);
+		var r = 2;
+		var icon = new Icon(type,Std.int(x + (120*Std.int(pos/r))),Std.int(y + titlebarHeight + (140*(pos%r))),function(){open(name,type);}, name, 90);
 		icons.push(icon);
 		HXP.scene.add(icon);
 	}
@@ -84,7 +85,10 @@ class Explorer extends Window
 		}
 		else
 		{
-			trace(name);
+			if (type == "ogg")
+			{
+				HXP.scene.add(new SoundPlayer(new Rectangle(150,150,300,200),name)).play();
+			}
 		}
 		
 		text.visible = false;
@@ -119,5 +123,19 @@ class Explorer extends Window
 		}
 		
 		icons = [];
+	}
+	
+	override public function show()
+	{
+		super.show();
+		for (i in icons)
+			i.visible = true;
+	}
+	
+	override public function hide()
+	{
+		super.hide();
+		for (i in icons)
+			i.visible = false;
 	}
 }

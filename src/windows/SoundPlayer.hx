@@ -17,14 +17,12 @@ class SoundPlayer extends Window
 	private var playIcon:Icon;
 	private var pauseIcon:Icon;
 	
-	
-	
 	public function new(rect:Rectangle,fileName:String)
 	{
 		this.appName = "Sound player";
 		this.fileName = fileName;
 		super(rect);		
-		sound = new Sfx("audio/"+fileName+".ogg");
+		sound = new Sfx("audio/"+fileName);
 	}
 	
 	override public function added()

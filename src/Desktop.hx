@@ -32,6 +32,6 @@ class Desktop extends Scene
 		windows = new Array<Window>();
 		windows.push( add(new windows.Explorer(new openfl.geom.Rectangle(50,50,300,300),"Desktop")) );
 		//~ windows.push( add(new windows.ImageViewer(new openfl.geom.Rectangle(100,100,300,400),"toto")) );
-		//~ windows.push( add(new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),"sound")) );
+		//~ windows.push( add(new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),"sound.ogg")) );
 	}
 }
