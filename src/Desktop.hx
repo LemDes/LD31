@@ -6,7 +6,7 @@ import windows.*;
 
 class Desktop extends Scene
 {
-	static var windows = new Array<Window>();
+	public static var windows = new Array<Window>();
 	
 	public static var minLayer : Int = 15000;
 	
@@ -26,6 +26,11 @@ class Desktop extends Scene
 	public static function open (window:Window)
 	{
 		windows.push( HXP.scene.add( window ) );
+	}
+	
+	public static function close (window:Window)
+	{
+		windows = windows.filter(function (w) return w != window);
 	}
 	
 	public override function begin ()

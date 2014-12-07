@@ -49,21 +49,61 @@ class Window extends Entity
 	}
 	
 	public function makeTitleBar()
-	{		
-		bar = Image.createRect(Std.int(rect.width),Std.int(rect.height),0xDDDAD8);
-		//~ bar.x = rect.x;
-		//~ bar.y = rect.y;
-		cast(graphic,Graphiclist).add(bar);
+	{
+		var g = cast(graphic, Graphiclist);
+		
+		var s = new Image("graphics/shadow.png", new Rectangle(0, 0, rect.width, 21));
+		s.y = -10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow.png", new Rectangle(0, 0, rect.width, 21));
+		s.scaleY = -1;
+		s.y = rect.height + 10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_vertical.png", new Rectangle(0, 0, 21, rect.height));
+		s.x = -10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_vertical.png", new Rectangle(0, 0, 21, rect.height));
+		s.scaleX = -1;
+		s.x = rect.width + 10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_corner.png");
+		s.x = -10;
+		s.y = -10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_corner.png");
+		s.scaleY = -1;
+		s.x = -10;
+		s.y = rect.height + 10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_corner.png");
+		s.scaleX = -1;
+		s.scaleY = -1;
+		s.x = rect.width + 10;
+		s.y = rect.height + 10;
+		g.add(s);
+		
+		var s = new Image("graphics/shadow_corner.png");
+		s.scaleX = -1;
+		s.x = rect.width + 10;
+		s.y = -10;
+		g.add(s);
+		
+		bar = Image.createRect(Std.int(rect.width), Std.int(rect.height), 0xDDDAD8);
+		g.add(bar);
 		
 		var appText = appName;
 		if (fileName != null && fileName != "")
 			appText += " - " + fileName;
-		text = new Text(appText, height=titlebarHeight-10);
-		text.color = 0x0;
+		text = new Text(appText, 0, 0, 0, titlebarHeight-10, {color:0});
 		text.x = Std.int((rect.width - text.width)/2);
 		text.y = Std.int(bar.y+2);
-		cast(graphic,Graphiclist).add(text);
-		
+		g.add(text);
 	}
 	
 	public override function update ()
@@ -123,6 +163,8 @@ class Window extends Entity
 	
 	public function close()
 	{
+		Desktop.close(this);
+		
 		HXP.scene.remove(closeIcon);
 		HXP.scene.remove(reduceIcon);
 		HXP.scene.remove(this);

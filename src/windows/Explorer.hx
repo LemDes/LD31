@@ -83,7 +83,7 @@ class Explorer extends Window
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
 		var r = 2;
-		var icon = new Icon(type,Std.int(x + (120*Std.int(pos/r))),Std.int(y + titlebarHeight + (140*(pos%r))),function(){openName(name,type);}, name, 90);
+		var icon = new Icon(type,Std.int(10 +x + (120*Std.int(pos/r))),Std.int(10 + y + titlebarHeight + (140*(pos%r))),function(){openName(name,type);}, name, 90);
 		icon.layer = layer;
 		icons.push(icon);
 		HXP.scene.add(icon);

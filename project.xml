@@ -4,7 +4,7 @@
 
  	<app file="Main" main="Main" path="bin" />
 
-	<window fps="60" background="0x333333" />
+	<window fps="60" background="0xFFFFFF" />
 	<window width="960" height="540" resizable="true" unless="mobile" />
 	<window fullscreen="true" if="mobile" />
 	<window orientation="landscape" vsync="true" antialiasing="0" if="cpp" />
