@@ -107,4 +107,18 @@ class SoundPlayer extends Window
 		HXP.scene.remove(pauseIcon);
 		super.close();
 	}
+	
+	override public function show()
+	{
+		super.show();
+		
+		playIcon.visible = pauseIcon.visible = true;
+	}
+	
+	override public function hide()
+	{
+		super.hide();
+		
+		playIcon.visible = pauseIcon.visible = false;
+	}
 }

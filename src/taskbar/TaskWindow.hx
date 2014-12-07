@@ -1,7 +1,9 @@
 package taskbar;
 
 import com.haxepunk.Entity;
+import com.haxepunk.HXP;
 import com.haxepunk.graphics.Image;
+import com.haxepunk.utils.Input;
 
 import windows.Window;
 
@@ -17,6 +19,7 @@ class TaskWindow extends Entity
 		height = 20;
 		
 		layer = -12;
+		type = "taskwindow";
 		
 		x = 0;
 		y = 510;
@@ -28,6 +31,36 @@ class TaskWindow extends Entity
 	
 	public function createImg()
 	{			
-		graphic = Image.createRect(width, height, 0xFF00FF);
+		graphic = Image.createRect(width, height, 0x0000FF);
+	}
+	
+	public override function update ()
+	{
+		super.update();
+		
+		var mx = Input.mouseX;
+		var my = Input.mouseY;
+		
+		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("taskwindow", mx, my) == this)
+		{
+			cast(graphic, Image).color = 0xFF00FF;
+			
+			if (Input.mouseReleased)
+			{
+				if (window.visible)
+				{
+					window.hide();
+				}
+				else
+				{
+					window.show();
+					window.bringToFront();
+				}
+			}
+		}
+		else
+		{
+			cast(graphic, Image).color = 0x0000FF;
+		}
 	}
 }
