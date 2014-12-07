@@ -3,10 +3,12 @@ import com.haxepunk.Scene;
 import com.haxepunk.graphics.Image;
 
 import windows.*;
+import taskbar.TaskWindow;
 
 class Desktop extends Scene
 {
 	public static var windows = new Array<Window>();
+	public static var taskwindows = new Array<TaskWindow>();
 	
 	public static var minLayer : Int = 15000;
 	
@@ -26,11 +28,31 @@ class Desktop extends Scene
 	public static function open (window:Window)
 	{
 		windows.push( HXP.scene.add( window ) );
+		taskwindows.push( HXP.scene.add( new TaskWindow(window) ) );
+		recalculateTW();
 	}
 	
 	public static function close (window:Window)
 	{
 		windows = windows.filter(function (w) return w != window);
+		taskwindows = taskwindows.filter(function (tw) { if (tw.window != window) { return true; } else { HXP.scene.remove(tw); return false; } });
+		recalculateTW();
+	}
+	
+	static function	recalculateTW()
+	{
+		var tx : Float = 90;
+		var twidth : Float = Math.min(200, 760/taskwindows.length);
+		
+		for (tw in taskwindows)
+		{
+			tw.x = Std.int(tx);
+			tw.width = Std.int(twidth-5);
+			
+			tx += twidth;
+			
+			tw.createImg();
+		}
 	}
 	
 	public override function begin ()
