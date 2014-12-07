@@ -33,6 +33,9 @@ class Window extends Entity
 		graphic = new Graphiclist();
 		makeTitleBar();		
 		makeMainFrame();
+		type="window";
+		width = Std.int(rect.width);
+		height = Std.int(rect.height);
 	}
 	
 	public override function added ()
@@ -68,9 +71,11 @@ class Window extends Entity
 		var mx : Float = Input.mouseX;
 		var my : Float = Input.mouseY;
 		
-		if (x <= mx && mx <= x + rect.width - 45 && y <= my && my <= y + titlebarHeight)
+		if (Input.mousePressed && HXP.scene.collidePoint("window", mx, my) == this)
 		{
-			if (Input.mousePressed)
+			bringToFront();
+			
+			if (x <= mx && mx <= x + width - 45 && y <= my && my <= y + titlebarHeight)
 			{
 				drag = { x: mx, y: my };
 			}
@@ -123,5 +128,12 @@ class Window extends Entity
 	public function hide()
 	{
 		closeIcon.visible = reduceIcon.visible = visible = false;
+	}
+	
+	public function bringToFront()
+	{
+		HXP.scene.sendToBack(this);
+		HXP.scene.sendToBack(reduceIcon);
+		HXP.scene.sendToBack(closeIcon);
 	}
 }

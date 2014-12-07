@@ -71,6 +71,14 @@ class SoundPlayer extends Window
 		addDelta(pauseIcon, delta.x, delta.y);
 	}
 	
+	public override function bringToFront ()
+	{
+		super.bringToFront();
+		
+		HXP.scene.sendToBack(playIcon);
+		HXP.scene.sendToBack(pauseIcon);
+	}
+	
 	public function pause()
 	{
 		sound.stop();

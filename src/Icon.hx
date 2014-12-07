@@ -1,4 +1,5 @@
 import com.haxepunk.Entity;
+import com.haxepunk.HXP;
 import com.haxepunk.graphics.*;
 import com.haxepunk.utils.Input;
 
@@ -40,6 +41,7 @@ class Icon extends Entity
 		}
 		
 		setHitboxTo(img_normal);
+		type = "icon";
 	}
 	
 	public override function update ()
@@ -49,7 +51,7 @@ class Icon extends Entity
 		var mx = Input.mouseX;
 		var my = Input.mouseY;
 		
-		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag())
+		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("icon", mx, my) == this)
 		{
 			graphic = text ? g_hover : img_hover;
 			

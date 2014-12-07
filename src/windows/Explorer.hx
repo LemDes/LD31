@@ -135,14 +135,30 @@ class Explorer extends Window
 	override public function show()
 	{
 		super.show();
+		
 		for (i in icons)
+		{
 			i.visible = true;
+		}
 	}
 	
 	override public function hide()
 	{
 		super.hide();
+		
 		for (i in icons)
+		{
 			i.visible = false;
+		}
+	}
+	
+	public override function bringToFront ()
+	{
+		super.bringToFront();
+		
+		for (icon in icons)
+		{
+			HXP.scene.sendToBack(icon);
+		}
 	}
 }
