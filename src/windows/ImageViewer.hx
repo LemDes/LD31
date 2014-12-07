@@ -8,7 +8,7 @@ class ImageViewer extends Window
 {
 	public static function open ()
 	{
-		Desktop.open( new windows.ImageViewer(new openfl.geom.Rectangle(100,100,300,400), "toto") );
+		Desktop.open( new windows.ImageViewer(new openfl.geom.Rectangle(100,100,404,330), "coffee_beans2.jpg") );
 	}
 	
 	public function new(rect:Rectangle,fileName:String)
@@ -20,7 +20,7 @@ class ImageViewer extends Window
 	
 	override public function makeMainFrame()
 	{
-		var mainFrame = Image.createRect(Std.int(rect.width-4),Std.int(rect.height- 2 -titlebarHeight),0x0ff00);
+		var mainFrame = new Image('graphics/'+fileName);
 		mainFrame.x = 2;
 		mainFrame.y = titlebarHeight;
 		cast(graphic,Graphiclist).add(mainFrame);
