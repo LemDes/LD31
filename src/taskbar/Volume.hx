@@ -1,6 +1,7 @@
 package taskbar;
 
 import com.haxepunk.graphics.Image;
+import com.haxepunk.Sfx;
 
 class Volume
 {
@@ -26,11 +27,13 @@ class Volume
 		
 		if (volume)
 		{
+			Sfx.setVolume("",1);
 			icon.img_normal = icons[0];
 			icon.img_hover = icons[1];
 		}
 		else
 		{
+			Sfx.setVolume("",0);
 			icon.img_normal = icons[2];
 			icon.img_hover = icons[3];
 		}
