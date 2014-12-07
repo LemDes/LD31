@@ -50,6 +50,18 @@ class Explorer extends Window
 		addFilesIcon();
 	}
 	
+	override function clicked (mx:Float, my:Float) : Bool
+	{
+		var b = super.clicked(mx, my);
+		
+		for (icon in icons)
+		{
+			b = b || HXP.scene.collidePoint("icon", mx, my) == icon;
+		}
+		
+		return b;
+	}
+	
 	private function addFilesIcon()
 	{
 		var i = 0;
@@ -72,6 +84,7 @@ class Explorer extends Window
 	{
 		var r = 2;
 		var icon = new Icon(type,Std.int(x + (120*Std.int(pos/r))),Std.int(y + titlebarHeight + (140*(pos%r))),function(){openName(name,type);}, name, 90);
+		icon.layer = layer;
 		icons.push(icon);
 		HXP.scene.add(icon);
 	}
@@ -166,7 +179,7 @@ class Explorer extends Window
 		
 		for (icon in icons)
 		{
-			HXP.scene.sendToBack(icon);
+			icon.layer = Desktop.minLayer - 1;
 		}
 	}
 }

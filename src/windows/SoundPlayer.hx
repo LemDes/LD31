@@ -75,8 +75,8 @@ class SoundPlayer extends Window
 	{
 		super.bringToFront();
 		
-		HXP.scene.sendToBack(playIcon);
-		HXP.scene.sendToBack(pauseIcon);
+		playIcon.layer = Desktop.minLayer - 1;
+		pauseIcon.layer = Desktop.minLayer - 1;
 	}
 	
 	public function pause()
