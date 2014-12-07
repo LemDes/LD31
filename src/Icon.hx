@@ -42,6 +42,7 @@ class Icon extends Entity
 		
 		setHitboxTo(img_normal);
 		type = "icon";
+		layer = Desktop.minLayer;
 	}
 	
 	public override function update ()

@@ -36,6 +36,8 @@ class Window extends Entity
 		type="window";
 		width = Std.int(rect.width);
 		height = Std.int(rect.height);
+		Desktop.minLayer -= 1;
+		layer = Desktop.minLayer;
 	}
 	
 	public override function added ()
@@ -71,9 +73,10 @@ class Window extends Entity
 		var mx : Float = Input.mouseX;
 		var my : Float = Input.mouseY;
 		
-		if (Input.mousePressed && HXP.scene.collidePoint("window", mx, my) == this)
-		{
-			bringToFront();
+		if (Input.mousePressed && clicked(mx, my))
+		{			
+			//~ if (layer != Desktop.minLayer)
+				bringToFront();
 			
 			if (x <= mx && mx <= x + width - 45 && y <= my && my <= y + titlebarHeight)
 			{
@@ -94,6 +97,11 @@ class Window extends Entity
 		
 			makeDrag();
 		}
+	}
+	
+	function clicked (mx:Float, my:Float) : Bool
+	{
+		return HXP.scene.collidePoint("window", mx, my) == this;
 	}
 	
 	function makeDrag ()
@@ -132,8 +140,10 @@ class Window extends Entity
 	
 	public function bringToFront()
 	{
-		HXP.scene.sendToBack(this);
-		HXP.scene.sendToBack(reduceIcon);
-		HXP.scene.sendToBack(closeIcon);
+		layer = Desktop.minLayer - 1;
+		reduceIcon.layer = Desktop.minLayer - 1;
+		closeIcon.layer = Desktop.minLayer - 1;
+		
+		Desktop.minLayer -= 1;
 	}
 }
