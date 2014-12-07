@@ -6,6 +6,11 @@ import openfl.geom.Rectangle;
 
 class ImageViewer extends Window
 {
+	public static function open ()
+	{
+		Desktop.open( new windows.ImageViewer(new openfl.geom.Rectangle(100,100,300,400), "toto") );
+	}
+	
 	public function new(rect:Rectangle,fileName:String)
 	{
 		this.appName = "Image viewer";

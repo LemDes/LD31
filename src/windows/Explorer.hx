@@ -14,6 +14,11 @@ class Explorer extends Window
 	private var fileStructure:Map<String, Array<String>>;
 	private var parents:Map<String, String>;
 	
+	public static function open (folder:String)
+	{
+		Desktop.open(new Explorer(new openfl.geom.Rectangle(80,25,800,450), folder));
+	}
+	
 	public function new(rect:Rectangle,fileName:String)
 	{
 		this.appName = "Explorer";
@@ -21,10 +26,12 @@ class Explorer extends Window
 		
 		fileStructure = new Map<String, Array<String>>();
 		fileStructure["Desktop"] = ["test", "music.ogg"];
+		fileStructure["Trash"] = [".."];
 		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg"];
 		
 		parents = new Map<String, String>();
 		parents["test"] = "Desktop";
+		parents["Trash"] = "Desktop";
 		
 		super(rect);
 	}
@@ -63,12 +70,12 @@ class Explorer extends Window
 	
 	private function displayEntry(name:String,pos:Int,type:String)
 	{
-		var icon = new Icon(type,Std.int(x + (90*Std.int(pos/5))),Std.int(y + titlebarHeight + (140*(pos%5))),function(){open(name,type);}, name, 90);
+		var icon = new Icon(type,Std.int(x + (90*Std.int(pos/5))),Std.int(y + titlebarHeight + (140*(pos%5))),function(){openName(name,type);}, name, 90);
 		icons.push(icon);
 		HXP.scene.add(icon);
 	}
 	
-	private function open(name:String,type:String)
+	private function openName(name:String,type:String)
 	{
 		if (type == "folder")
 		{

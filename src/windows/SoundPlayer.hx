@@ -17,7 +17,10 @@ class SoundPlayer extends Window
 	private var playIcon:Icon;
 	private var pauseIcon:Icon;
 	
-	
+	public static function open ()
+	{
+		Desktop.open( new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),"sound") );
+	}
 	
 	public function new(rect:Rectangle,fileName:String)
 	{
