@@ -19,7 +19,14 @@ class SoundPlayer extends Window
 	
 	public static function open ()
 	{
-		Desktop.open( new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),"sound.ogg") );
+		Desktop.open( new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),"sound.ogg"));
+	}
+	
+	public static function openFile (fileName="sound.ogg")
+	{
+		var sp =  new windows.SoundPlayer(new openfl.geom.Rectangle(500,100,300,150),fileName);
+		Desktop.open( sp );
+		sp.play();
 	}
 	
 	public function new(rect:Rectangle,fileName:String)

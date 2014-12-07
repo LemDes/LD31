@@ -94,7 +94,7 @@ class Explorer extends Window
 		{
 			if (type == "ogg")
 			{
-				HXP.scene.add(new SoundPlayer(new Rectangle(150,150,300,200),name)).play();
+				SoundPlayer.openFile(name);
 			}
 		}
 		
