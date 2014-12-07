@@ -25,8 +25,8 @@ class Explorer extends Window
 		this.fileName = fileName;
 		
 		fileStructure = new Map<String, Array<String>>();
-		fileStructure["Desktop"] = ["test", "sound.ogg"];
-		fileStructure["Trash"] = [".."];
+		fileStructure["Desktop"] = ["test", "sound.ogg","vendetta-warrior.exe"];
+		fileStructure["Trash"] = ["..","vendetta-warrior.exe"];
 		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg"];
 		
 		parents = new Map<String, String>();
@@ -95,6 +95,14 @@ class Explorer extends Window
 			if (type == "ogg")
 			{
 				SoundPlayer.openFile(name);
+			}
+			if (type == "exe")
+			{
+				switch (fileName)
+				{
+					case "Desktop":
+						SoundPlayer.openFile("enigma1.ogg");
+				}
 			}
 		}
 		
