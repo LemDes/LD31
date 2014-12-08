@@ -42,8 +42,8 @@ class Popup extends Window
 	
 	public override function added ()
 	{
-		closeIcon = new Icon("close", Std.int(rect.x+rect.width-20), Std.int(rect.y+4), function () close());
-		okIcon = new Icon("show_desktop", Std.int(rect.x+(rect.width/2)-20), Std.int(rect.y+rect.height-50), function () close());
+		closeIcon = new Icon("close", Std.int(x+rect.width-20), Std.int(y+4), function () close());
+		okIcon = new Icon("show_desktop", Std.int(x+(rect.width/2)-20), Std.int(y+rect.height-50), function () close());
 		HXP.scene.add(closeIcon);
 		HXP.scene.add(okIcon);
 	}
@@ -87,7 +87,7 @@ class Popup extends Window
 	
 	override public function hide()
 	{
-		closeIcon.visible = visible = false;
+		closeIcon.visible = okIcon.visible = visible = false;
 	}
 	public override function update ()
 	{

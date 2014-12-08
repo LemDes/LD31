@@ -27,8 +27,8 @@ class Window extends Entity
 	var delta : { x:Float, y:Float };	
 	
 	public function new(rect:Rectangle)
-	{
-		super(rect.x, rect.y);
+	{		
+		super((960-rect.width)/2, (540-rect.height)/2);
 		this.rect = rect;
 		graphic = new Graphiclist();
 		makeTitleBar();		
