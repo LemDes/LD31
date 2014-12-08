@@ -94,8 +94,9 @@ class Window extends Entity
 		s.y = -10;
 		g.add(s);
 		
-		bar = Image.createRect(Std.int(rect.width), Std.int(rect.height), 0xDDDAD8);
+		bar = Image.createRect(Std.int(rect.width), Std.int(rect.height), 0xC8C2C0);
 		g.add(bar);
+		g.add(Image.createRect(Std.int(rect.width), 27, 0xDDDAD8));
 		
 		var appText = appName;
 		if (fileName != null && fileName != "")
