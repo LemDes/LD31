@@ -40,8 +40,8 @@ class SoundPlayer extends Window
 	override public function added()
 	{
 		super.added();
-		playIcon = new Icon("close", Std.int(rect.x + 10), Std.int(rect.y) +titlebarHeight + 10, play);
-		pauseIcon = new Icon("close", Std.int(rect.x + 30), Std.int(rect.y) +titlebarHeight + 10, stop);
+		playIcon = new Icon("close", Std.int(x + 10), Std.int(y) +titlebarHeight + 10, play);
+		pauseIcon = new Icon("close", Std.int(x + 30), Std.int(y) +titlebarHeight + 10, stop);
 		HXP.scene.add(playIcon);
 		HXP.scene.add(pauseIcon);
 		

@@ -40,6 +40,14 @@ class Desktop extends Scene
 		recalculateTW();
 	}
 	
+	public static function hideAll ()
+	{
+		for (window in windows)
+		{
+			window.hide();
+		}
+	}
+	
 	static function	recalculateTW()
 	{
 		var tx : Float = 90;

@@ -28,7 +28,7 @@ class Window extends Entity
 	
 	public function new(rect:Rectangle)
 	{		
-		super((960-rect.width)/2, (540-rect.height)/2);
+		super((960-rect.width)/2, (500-rect.height)/2);
 		this.rect = rect;
 		graphic = new Graphiclist();
 		makeTitleBar();		
@@ -42,8 +42,8 @@ class Window extends Entity
 	
 	public override function added ()
 	{
-		closeIcon = new Icon("close", Std.int(rect.x+rect.width-20), Std.int(rect.y+4), function () close());
-		reduceIcon = new Icon("reduce", Std.int(rect.x+rect.width-45), Std.int(rect.y+4), function () hide());
+		closeIcon = new Icon("close", Std.int(x+rect.width-20), Std.int(y+4), function () close());
+		reduceIcon = new Icon("reduce", Std.int(x+rect.width-45), Std.int(y+4), function () hide());
 		HXP.scene.add(closeIcon);
 		HXP.scene.add(reduceIcon);
 	}
