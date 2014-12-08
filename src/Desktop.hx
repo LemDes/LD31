@@ -70,5 +70,8 @@ class Desktop extends Scene
 		add( new Icon("sound", 20, 220, SoundPlayer.open, "Sound player", 0) );
 		add( new Icon("image", 20, 340, ImageViewer.open, "Image viewer", 0) );
 		add( new Icon("textviewer", 120, 20, TextViewer.open, "Text viewer", 0) );
+		
+		//~ Popup.openFile("reminder1","Reminder");
+		Popup.openFile("onSubmitWithVendetta");
 	}
 }

@@ -42,8 +42,8 @@ class TextViewer extends Window
 		mainFrame.y = titlebarHeight;
 		cast(graphic,Graphiclist).add(mainFrame);
 		
-		var text = new Text(TextViewer.textFiles[fileName],mainFrame.x +2, mainFrame.y + 2, mainFrame.width-4,mainFrame.height-2);
-		text.color = 0x0;
+		var text = new Text(TextViewer.textFiles[fileName],mainFrame.x +2, mainFrame.y + 2, mainFrame.width-4,mainFrame.height-2,{wordWrap:true,color:0x0});
+		//~ text.color = 0x0;
 		cast(graphic,Graphiclist).add(text);
 	}
 }
