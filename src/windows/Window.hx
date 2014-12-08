@@ -114,9 +114,8 @@ class Window extends Entity
 		var my : Float = Input.mouseY;
 		
 		if (Input.mousePressed && clicked(mx, my))
-		{			
-			//~ if (layer != Desktop.minLayer)
-				bringToFront();
+		{
+			Desktop.bringWinToFront(this);
 			
 			if (x <= mx && mx <= x + width - 45 && y <= my && my <= y + titlebarHeight)
 			{

@@ -28,16 +28,45 @@ class Desktop extends Scene
 	
 	public static function open (window:Window)
 	{
-		windows.push( HXP.scene.add( window ) );
+		HXP.scene.add(window);
+		windows = [window].concat(windows);
 		taskwindows.push( HXP.scene.add( new TaskWindow(window) ) );
 		recalculateTW();
 	}
 	
 	public static function close (window:Window)
-	{
+	{		
 		windows = windows.filter(function (w) return w != window);
 		taskwindows = taskwindows.filter(function (tw) { if (tw.window != window) { return true; } else { HXP.scene.remove(tw); return false; } });
 		recalculateTW();
+		
+		if (windows.length == 0)
+		{
+			minLayer = 15000;
+		}
+	}
+	
+	public static function bringWinToFront (window:Window)
+	{
+		if (windows[0] != window)
+		{
+			windows = windows.filter(function (w) return w != window);
+			windows = [window].concat(windows);
+			window.bringToFront();
+		}
+	}
+	
+	public static function isInFront (window:Window) : Bool
+	{
+		for (w in windows)
+		{
+			if (w.visible)
+			{
+				return w == window;
+			}
+		}
+		
+		return false; // should not happen
 	}
 	
 	public static function hideAll ()

@@ -8,7 +8,6 @@ import openfl.geom.Rectangle;
 
 class SoundPlayer extends Window
 {
-	
 	public var sound:Sfx;
 	
 	public var paused:Bool = false;

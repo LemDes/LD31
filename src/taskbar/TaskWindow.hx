@@ -49,12 +49,19 @@ class TaskWindow extends Entity
 			{
 				if (window.visible)
 				{
-					window.hide();
+					if (Desktop.isInFront(window))
+					{
+						window.hide();
+					}
+					else
+					{
+						Desktop.bringWinToFront(window);
+					}
 				}
 				else
 				{
 					window.show();
-					window.bringToFront();
+					Desktop.bringWinToFront(window);
 				}
 			}
 		}
