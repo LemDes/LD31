@@ -15,7 +15,7 @@ class Popup extends Window
 	{ 
 		Popup.textFiles = new Map<String, String>();
 		Popup.textFiles[""] = "";
-		Popup.textFiles["reminder1"] = "The LD31 game is finished don't forget to submit it!";
+		Popup.textFiles["onStart"] = "The LD31 game is finished don't forget to submit it!";
 		Popup.textFiles["onSubmitWithVendetta"] = "I wont let you publish your shitty LD game. Try to find me and stop me if you dare!";
 	}
 	

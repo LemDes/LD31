@@ -98,6 +98,19 @@ class Desktop extends Scene
 		// Wallpaper
 		addGraphic(new Image("graphics/LD31-Background.png"), 20000);
 		
+		
+		add( new Icon("submit",680,340,function() 
+			{
+				if (Desktop.vendettaActive) 
+				{
+					Popup.openFile("onSubmitWithVendetta");
+				}
+				else 
+				{
+					trace("Victory");
+				}
+			}));
+		
 		// TaskBar
 		new taskbar.TaskBar(this);
 
@@ -108,7 +121,6 @@ class Desktop extends Scene
 		add( new Icon("image", 20, 340, ImageViewer.open, "Image viewer", 0) );
 		add( new Icon("textviewer", 120, 20, TextViewer.open, "Text viewer", 0) );
 		
-		//~ Popup.openFile("reminder1","Reminder");
-		Popup.openFile("onSubmitWithVendetta");
+		Popup.openFile("onStart","Reminder");
 	}
 }
