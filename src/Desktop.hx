@@ -7,6 +7,7 @@ import taskbar.TaskWindow;
 
 class Desktop extends Scene
 {
+	public static var vendettaActive = true;
 	public static var windows = new Array<Window>();
 	public static var taskwindows = new Array<TaskWindow>();
 	

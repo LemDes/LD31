@@ -34,7 +34,7 @@ class Explorer extends Window
 		fileStructure["spring"] = ["..","vendetta-warrior.exe"];
 		fileStructure["summer"] = ["..","vendetta-warrior.exe"];
 		fileStructure["winter"] = ["..","normal folder","secret folder","vendetta-warrior.exe"];
-		fileStructure["normal folder"] = ["..","perpetuator.png","vendetta-warrior.exe","stop-vendetta.exe"];
+		fileStructure["normal folder"] = ["..","perpetuator.png","vendetta-warrior.exe","cancel-vendetta.exe"];
 		fileStructure["secret folder"] = ["..","vendetta-warrior.exe"];
 		
 		
@@ -143,14 +143,28 @@ class Explorer extends Window
 			}
 			else if (type == "exe")
 			{
-				switch (fileName)
+				if (name == "cancel-vendetta.exe")
 				{
-					case "Home":
-						SoundPlayer.openFile("enigma1.ogg");
-					case "winter":
-						TextViewer.openFile("caesar_cipher.txt");
-					default:
-						SoundPlayer.openFile("enigma1.ogg");
+					Desktop.vendettaActive = false;
+					for (i in fileStructure)
+					{
+						i.remove("vendetta-warrior.exe");
+					}
+					fileStructure[fileName].remove("cancel-vendetta.exe");
+					cleanIcons();
+					addFilesIcon();
+				}
+				else
+				{
+					switch (fileName)
+					{
+						case "Home":
+							SoundPlayer.openFile("enigma1.ogg");
+						case "winter":
+							TextViewer.openFile("caesar_cipher.txt");
+						default:
+							SoundPlayer.openFile("enigma1.ogg");
+					}
 				}
 			}
 		}
