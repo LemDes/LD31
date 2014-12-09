@@ -26,6 +26,8 @@ class Window extends Entity
 	public var drag : { x:Float, y:Float };	
 	var delta : { x:Float, y:Float };	
 	
+	public var appText : String = "";
+	
 	public function new(rect:Rectangle)
 	{		
 		super((960-rect.width)/2, (500-rect.height)/2);
@@ -33,7 +35,7 @@ class Window extends Entity
 		graphic = new Graphiclist();
 		makeTitleBar();		
 		makeMainFrame();
-		type="window";
+		type="all";
 		width = Std.int(rect.width);
 		height = Std.int(rect.height);
 		Desktop.minLayer -= 1;
@@ -98,7 +100,7 @@ class Window extends Entity
 		g.add(bar);
 		g.add(Image.createRect(Std.int(rect.width), 27, 0xDDDAD8));
 		
-		var appText = appName;
+		appText = appName;
 		if (fileName != null && fileName != "")
 			appText += " - " + fileName;
 		text = new Text(appText, 0, 0, 0, titlebarHeight-10, {color:0});
@@ -141,7 +143,7 @@ class Window extends Entity
 	
 	function clicked (mx:Float, my:Float) : Bool
 	{
-		return HXP.scene.collidePoint("window", mx, my) == this;
+		return HXP.scene.collidePoint("all", mx, my) == this;
 	}
 	
 	function makeDrag ()

@@ -2,7 +2,9 @@ package taskbar;
 
 import com.haxepunk.Entity;
 import com.haxepunk.HXP;
+import com.haxepunk.graphics.Graphiclist;
 import com.haxepunk.graphics.Image;
+import com.haxepunk.graphics.Text;
 import com.haxepunk.utils.Input;
 
 import windows.Window;
@@ -10,6 +12,10 @@ import windows.Window;
 class TaskWindow extends Entity
 {
 	public var window : Window;
+	var gl : Graphiclist;
+	var img : Image;
+	var text : Text;
+	var t : String;
 	
 	public function new (window:Window)
 	{
@@ -19,10 +25,11 @@ class TaskWindow extends Entity
 		height = 20;
 		
 		layer = -12;
-		type = "taskwindow";
+		type = "all";
 		
 		x = 0;
 		y = 510;
+		t = window.appText;
 		
 		createImg();
 		
@@ -31,19 +38,27 @@ class TaskWindow extends Entity
 	
 	public function createImg()
 	{			
-		graphic = Image.createRect(width, height, 0x0000FF);
+		img = Image.createRect(width, height, 0x999999);
+		text = new Text(t, 0, 0, width, {color: 0, size: 16, resizable: false});
+		graphic = new Graphiclist([img, text]);
 	}
 	
 	public override function update ()
 	{
 		super.update();
 		
+		if (window.appText != t)
+		{
+			t = window.text.text;
+			createImg();
+		}
+		
 		var mx = Input.mouseX;
 		var my = Input.mouseY;
 		
-		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("taskwindow", mx, my) == this)
+		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("all", mx, my) == this)
 		{
-			cast(graphic, Image).color = 0xFF00FF;
+			img.color = 0xFFFFFF;
 			
 			if (Input.mouseReleased)
 			{
@@ -67,7 +82,12 @@ class TaskWindow extends Entity
 		}
 		else
 		{
-			cast(graphic, Image).color = 0x0000FF;
+			if (Desktop.isInFront(window))
+				img.color = 0xFFFFFF;
+			else
+				img.color = 0x999999;
 		}
+		
+		graphic = new Graphiclist([img, text]);
 	}
 }

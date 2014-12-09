@@ -77,6 +77,17 @@ class Desktop extends Scene
 		}
 	}
 	
+	public static function updateExplorers ()
+	{
+		for (window in windows)
+		{
+			if (Std.is(window, Explorer))
+			{
+				cast(window, Explorer).updateContent();
+			}
+		}
+	}
+	
 	static function	recalculateTW()
 	{
 		var tx : Float = 90;
@@ -98,7 +109,10 @@ class Desktop extends Scene
 		// Wallpaper
 		addGraphic(new Image("graphics/LD31-Background.png"), 20000);
 		
-		
+		// Widget
+		addGraphic(new Image("graphics/widget.png"), 20000, 960-285, 110);
+		var t = new TimeLeft();
+		add( t );
 		add( new Icon("submit",680,340,function() 
 			{
 				if (Desktop.vendettaActive) 
@@ -107,7 +121,13 @@ class Desktop extends Scene
 				}
 				else 
 				{
-					trace("Victory");
+					if (t.leftTime)
+					{
+						t.submitted = true;
+						Popup.openFile("victory");						
+					}
+					else
+						Popup.openFile("failed");
 				}
 			}));
 		
@@ -115,8 +135,8 @@ class Desktop extends Scene
 		new taskbar.TaskBar(this);
 
 		// Desktop links
-		add( new Icon("explorer", 20, 20, Explorer.open.bind("Home"), "Explorer", 0) );
-		add( new Icon("trash", 20, 120, Explorer.open.bind("Trash"), "Trash", 0) );
+		add( new Icon("explorer", 20, 20, Explorer.open.bind("Home"), "Explorer", 90) );
+		add( new Icon("trash", 20, 120, Explorer.open.bind("Trash"), "Trash", 90) );
 		add( new Icon("sound", 20, 220, SoundPlayer.open, "Sound player", 0) );
 		add( new Icon("image", 20, 340, ImageViewer.open, "Image viewer", 0) );
 		add( new Icon("textviewer", 120, 20, TextViewer.open, "Text viewer", 0) );

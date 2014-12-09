@@ -16,6 +16,7 @@ class TextViewer extends Window
 		TextViewer.textFiles["caesar_cipher.txt"] = "opsnbm"; // +1
 		//~ TextViewer.textFiles["caesar_cipher.txt"] = "pqtocn"; // +2
 		TextViewer.textFiles["perpetuator.txt"] = "☃";
+		TextViewer.textFiles["credits.md"] = "# MetaLD\n\nA Ludum Dare 31 game made by\nValentin Lemière and Guillaume Desquesnes\n\nHope you enjoy it :)";
 	}
 	
 	public function new(rect:Rectangle,fileName:String)

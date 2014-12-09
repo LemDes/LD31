@@ -11,34 +11,27 @@ import openfl.geom.Rectangle;
 class Explorer extends Window
 {
 	private var icons:Array<Icon> = [];
-	private var fileStructure:Map<String, Array<String>>;
-	private var parents:Map<String, String>;
+	public  static var fileStructure:Map<String, Array<String>>;
+	public static var parents:Map<String, String>;
 	
-	public static function open (folder:String)
+	public static function __init__()
 	{
-		Desktop.open(new Explorer(new openfl.geom.Rectangle(80,25,800,450), folder));
-	}
-	
-	public function new(rect:Rectangle,fileName:String)
-	{
-		this.appName = "Explorer";
-		this.fileName = fileName;
-		
 		fileStructure = new Map<String, Array<String>>();
-		fileStructure["Trash"] = ["..","vendetta-warrior.exe"];
-		fileStructure["Home"] = ["seasonal","stuff","work","vendetta-warrior.exe"];
-		fileStructure["work"] = ["..","LD31","vendetta-warrior.exe"];
-		fileStructure["stuff"] = ["..","vendetta-warrior.exe"];
-		fileStructure["seasonal"] = ["..","autumn","spring","summer","winter","vendetta-warrior.exe"];
-		fileStructure["autumn"] = ["..","vendetta-warrior.exe"];
-		fileStructure["spring"] = ["..","vendetta-warrior.exe"];
-		fileStructure["summer"] = ["..","vendetta-warrior.exe"];
-		fileStructure["winter"] = ["..","normal folder","secret folder","vendetta-warrior.exe"];
-		fileStructure["normal folder"] = ["..","perpetuator.png","vendetta-warrior.exe","cancel-vendetta.exe"];
-		fileStructure["secret folder"] = ["..","vendetta-warrior.exe"];
+		fileStructure["Trash"] = ["..","virus.exe"];
+		fileStructure["Home"] = ["seasonal","stuff","work","virus.exe"];
+		fileStructure["work"] = ["..","LD31","virus.exe"];
+		fileStructure["stuff"] = ["..","virus.exe"];
+		fileStructure["seasonal"] = ["..","autumn","spring","summer","winter","virus.exe"];
+		fileStructure["autumn"] = ["..","virus.exe"];
+		fileStructure["spring"] = ["..","virus.exe"];
+		fileStructure["summer"] = ["..","virus.exe"];
+		fileStructure["winter"] = ["..","normal folder","secret folder","virus.exe"];
+		fileStructure["normal folder"] = ["..","perpetuator.png","virus.exe","cancel-vendetta.exe"];
+		fileStructure["secret folder"] = ["..","virus.exe"];
+		fileStructure["LD31"] = ["..","mygame.zip"];
 		
 		
-		fileStructure["test"] = ["..", "vendetta-warrior.exe", "music.ogg","test.txt"];
+		fileStructure["test"] = ["..", "virus.exe", "music.ogg","test.txt"];
 		
 		parents = new Map<String, String>();
 		parents["work"] = "Home";
@@ -51,6 +44,17 @@ class Explorer extends Window
 		parents["normal folder"] = "winter";
 		parents["secret folder"] = "winter";
 		parents["Trash"] = "Home";
+	}
+	
+	public static function open (folder:String)
+	{
+		Desktop.open(new Explorer(new openfl.geom.Rectangle(80,25,800,450), folder));
+	}
+	
+	public function new(rect:Rectangle,fileName:String)
+	{
+		this.appName = "Explorer";
+		this.fileName = fileName;
 		
 		super(rect);
 	}
@@ -75,7 +79,7 @@ class Explorer extends Window
 		
 		for (icon in icons)
 		{
-			b = b || HXP.scene.collidePoint("icon", mx, my) == icon;
+			b = b || HXP.scene.collidePoint("all", mx, my) == icon;
 		}
 		
 		return b;
@@ -118,7 +122,7 @@ class Explorer extends Window
 	{
 		if (type == "folder")
 		{
-			if (name != "LD31")
+			if (name != "LD31" || !Desktop.vendettaActive)
 			{
 				cleanIcons();
 				
@@ -131,7 +135,9 @@ class Explorer extends Window
 				addFilesIcon();
 			}
 			else
-			{}
+			{
+				Popup.openFile("onSubmitWithVendetta");
+			}
 		}
 		else
 		{
@@ -154,11 +160,12 @@ class Explorer extends Window
 					Desktop.vendettaActive = false;
 					for (i in fileStructure)
 					{
-						i.remove("vendetta-warrior.exe");
+						i.remove("virus.exe");
 					}
 					fileStructure[fileName].remove("cancel-vendetta.exe");
-					cleanIcons();
-					addFilesIcon();
+					
+					Desktop.updateExplorers();
+					
 				}
 				else
 				{
@@ -176,11 +183,22 @@ class Explorer extends Window
 		}
 		
 		text.visible = false;
-		text.text = appName+" - " + fileName;
+		
+		appText = appName;
+		if (fileName != null && fileName != "")
+			appText += " - " + fileName;
+		
+		text.text = appText;
 		text.color = 0x0;
 		text.x = Std.int(bar.x + (rect.width - text.textWidth)/2);
 		text.y = Std.int(bar.y+2);
 		text.visible = true;
+	}
+	
+	public function updateContent ()
+	{
+		cleanIcons();
+		addFilesIcon();
 	}
 	
 	override function makeDrag ()
@@ -212,7 +230,7 @@ class Explorer extends Window
 	override public function show()
 	{
 		super.show();
-		
+				
 		for (i in icons)
 		{
 			i.visible = true;

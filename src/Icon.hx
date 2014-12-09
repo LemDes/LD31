@@ -41,7 +41,7 @@ class Icon extends Entity
 		}
 		
 		setHitboxTo(img_normal);
-		type = "icon";
+		type = "all";
 		layer = Desktop.minLayer;
 	}
 	
@@ -52,7 +52,7 @@ class Icon extends Entity
 		var mx = Input.mouseX;
 		var my = Input.mouseY;
 		
-		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("icon", mx, my) == this)
+		if (x <= mx && mx <= x + width && y <= my && my <= y + height && !Desktop.inDrag() && HXP.scene.collidePoint("all", mx, my) == this)
 		{
 			graphic = text ? g_hover : img_hover;
 			

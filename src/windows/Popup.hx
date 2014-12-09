@@ -15,8 +15,10 @@ class Popup extends Window
 	{ 
 		Popup.textFiles = new Map<String, String>();
 		Popup.textFiles[""] = "";
-		Popup.textFiles["onStart"] = "The LD31 game is finished don't forget to submit it!";
-		Popup.textFiles["onSubmitWithVendetta"] = "I wont let you publish your shitty LD game. Try to find me and stop me if you dare!";
+		Popup.textFiles["onStart"] = "You finished your game for the LD 31. There's only 10min left so don't forget to submit it!";
+		Popup.textFiles["onSubmitWithVendetta"] = "Error file in use:\n\"I wont let you publish your shitty LD game. Try to find me and stop me if you dare!\"";
+		Popup.textFiles["failed"] = "Too late to submit :(\nIt seems the evil perpetrator won and you lose.";
+		Popup.textFiles["victory"] = "You submited your game, time to start voting.\n\nCongratulation you've won MetaLD! :)";
 	}
 	
 	private var t="";
@@ -29,12 +31,12 @@ class Popup extends Window
 	
 	public static function openFile(text:String,?fileName:String=null)
 	{
-		Desktop.open( new windows.Popup(new openfl.geom.Rectangle(500,100,350,150),text,fileName));
+		Desktop.open( new windows.Popup(new openfl.geom.Rectangle(500,100,350,150),text,fileName) );
 	}
 	
 	public function new(rect:Rectangle,text:String,?fileName:String=null)
 	{
-		this.appName = "Popup";
+		this.appName = fileName != null ? "Popup" : "Error";
 		this.t = text;
 		this.fileName=fileName;
 		super(rect);
@@ -50,7 +52,7 @@ class Popup extends Window
 	
 	override public function makeMainFrame()
 	{
-		var text = new Text(Popup.textFiles[t],4,titlebarHeight+2, Std.int(rect.width-4),0,{wordWrap:true,align:"center",color:0x0});
+		var text = new Text(Popup.textFiles[t],4,titlebarHeight+2, Std.int(rect.width-4),0,{wordWrap:true,align:flash.text.TextFormatAlign.CENTER,color:0x0});
 		text.y = text.y + Std.int(((rect.height-70-titlebarHeight)-text.textHeight));
 		cast(graphic,Graphiclist).add(text);
 	}
